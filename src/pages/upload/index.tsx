@@ -11,12 +11,12 @@ export default function Home() {
     <MainLayout bg={false} className="h-screen">
       <Nav />
 
-      <div className="flex-1 flex flex-col gap-14 pl-24 pt-10 pr-5">
+      <div className="flex-1 flex flex-col gap-14 pl-24 max-2xl:pl-16 pt-10 pr-5">
         <div className="w-full">
           <Badge size={'lg'}>Requires amendments</Badge>
           <div className="flex items-center justify-between  mt-5 mb-3">
             <div className="flex gap-4 items-center">
-              <h1 className="text-32 font-semibold">
+              <h1 className="text-32 font-semibold line-clamp-1">
                 King Kong Cash - Game Review
               </h1>
               <button type="button">

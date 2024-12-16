@@ -11,7 +11,7 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-orange hover:bg-[#cd4b03]',
         purple: 'bg-paplepurple hover:bg-purple',
-        outline: 'border hover:bg-white hover:text-black',
+        outline: 'border hover:bg-white hover:text-black [&:hover>img]:invert',
         link: 'text-xs text-grey underline hover:text-orange',
       },
       size: {

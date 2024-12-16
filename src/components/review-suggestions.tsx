@@ -2,6 +2,7 @@ import { Check, ChevronUp } from 'lucide-react'
 import React, { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Button } from './ui/button'
+import DiscussChat from './discuss-chat'
 
 const data = [
   {
@@ -23,10 +24,10 @@ const data = [
 ]
 
 const ReviewSuggestions = () => {
-  const [activeStep] = useState(1)
+  const [activeStep] = useState(0)
 
   return (
-    <div className="w-[26.625rem] flex flex-col pt-8">
+    <div className="w-[26.625rem] flex flex-col pt-8 relative">
       <header className="flex items-center justify-between mb-12">
         <h2 className="font-semibold text-2xl">Review suggestions</h2>
         <div className="text-xs bg-orange tetx-white rounded-full px-3 py-2">
@@ -36,7 +37,7 @@ const ReviewSuggestions = () => {
 
       <ul className="flex flex-col pr-4 pb-10 overflow-auto">
         {data.map((item, key) => (
-          <ol
+          <li
             key={key}
             className={twMerge(
               'flex items-start gap-4 py-8 first:pt-0 border-b border-white/30 opacity-65 pointer-events-none',
@@ -79,16 +80,23 @@ const ReviewSuggestions = () => {
                   )}
                 >
                   <Button size={'sm'}>Accept</Button>
-                  <Button size={'sm'} variant={'purple'}>
-                    Discuss
-                  </Button>
+
+                  <DiscussChat
+                    topic={
+                      <div className="flex flex-col text-grey">
+                        <p className="text-xs">{item.title}</p>
+                        <p>{item.desc}</p>
+                      </div>
+                    }
+                  />
+
                   <Button size={'sm'} variant={'outline'}>
                     Reject
                   </Button>
                 </div>
               )}
             </div>
-          </ol>
+          </li>
         ))}
       </ul>
     </div>

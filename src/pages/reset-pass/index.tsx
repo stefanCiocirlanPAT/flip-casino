@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image'
 import {
   Form,
   FormControl,
@@ -18,11 +17,10 @@ interface IForm {
   password: string
 }
 
-const Login = () => {
+const ResetPass = () => {
   const form = useForm<IForm>({
     defaultValues: {
       email: '',
-      password: '',
     },
   })
 
@@ -34,16 +32,10 @@ const Login = () => {
 
   return (
     <MainLayout className="flex-col items-start justify-center p-36">
-      <Image
-        src="/assests/img/logo-white.svg"
-        alt="Logo"
-        width={220}
-        height={50}
-        className="mb-12"
-      />
-      <h1 className="font-bold text-[5.625rem]">Welcome!</h1>
-      <p className="text-[2rem] mb-12">
-        Please sign in to use the Content Checker tool
+      <h1 className="font-bold text-[5.625rem]">Change password</h1>
+      <p className="text-[2rem] mb-12 max-w-[50rem]">
+        Please enter your email, to which we will send instructions for recover
+        your password
       </p>
       <Form {...form}>
         <form
@@ -67,45 +59,16 @@ const Login = () => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    type="password"
-                    placeholder="Password*"
-                    required
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
 
           <div className="flex items-center gap-8 mt-4">
-            <Button type="submit">Login</Button>
-            <Link href="/reset-pass" className="hover:underline">
-              Forgot password?
+            <Button type="submit">Send</Button>
+            <Link href="/login" className="hover:underline">
+              Login
             </Link>
           </div>
         </form>
       </Form>
-
-      <p className="m-8">or</p>
-
-      <Button variant="outline">
-        <Image
-          src="/assests/img/windows.png"
-          alt="Login via Windows"
-          width={36}
-          height={36}
-        />
-        Sign in with Windows
-      </Button>
     </MainLayout>
   )
 }
-export default Login
+export default ResetPass

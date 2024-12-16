@@ -1,18 +1,68 @@
-import { useState } from 'react'
+import { useState, ChangeEvent } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import MainLayout from '@/components/layouts/MainLayout'
-import Nav from '@/components/nav'
 import { Progress } from '@/components/ui/progress'
 import { twMerge } from 'tailwind-merge'
+import SidebarLayout from '@/components/layouts/SidebarLayout'
+import mammoth from 'mammoth'
+import { useCommonContext } from '@/state/commonContext'
+import { useRouter } from 'next/router'
 
 export default function Home() {
-  const [isLoading] = useState(false)
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const { setHtml } = useCommonContext()
+
+  const handleInput = async (event: ChangeEvent<HTMLInputElement>) => {
+    setIsLoading(true)
+    setProgress(0)
+
+    const startTime = Date.now()
+
+    try {
+      const file = event.target.files?.[0]
+      if (!file) throw new Error('Choose the file')
+
+      const arrayBuffer = await file.arrayBuffer()
+
+      const updateProgress = () =>
+        setProgress((prev) => Math.min(prev + 10, 90))
+
+      for (let i = 0; i < 9; i++) {
+        updateProgress()
+        await new Promise((resolve) => setTimeout(resolve, 300))
+      }
+
+      const result = await mammoth.convertToHtml(
+        {
+          arrayBuffer,
+        },
+        {
+          convertImage: mammoth.images.imgElement(() =>
+            Promise.resolve({ src: '', alt: '' })
+          ),
+        }
+      )
+
+      setHtml(result.value)
+      setProgress(100)
+
+      const elapsedTime = Date.now() - startTime
+      const remainingTime = Math.max(2000 - elapsedTime, 0)
+
+      setTimeout(() => {
+        setIsLoading(false)
+        router.push('/upload')
+      }, remainingTime)
+    } catch (error) {
+      console.error(error)
+      setIsLoading(false)
+    }
+  }
 
   return (
-    <MainLayout>
-      <Nav />
-
+    <SidebarLayout>
       <div className="flex-1 flex items-center justify-center text-center">
         {isLoading ? (
           <output
@@ -23,8 +73,8 @@ export default function Home() {
             <p className="text-3xl font-semibold mb-9">
               Processing upload, please wait...
             </p>
-            <Progress value={50} className="mb-3" />
-            <span>50%</span>
+            <Progress value={progress} className="mb-3" />
+            <span>{progress}%</span>
           </output>
         ) : (
           <section className="flex flex-col items-center gap-14">
@@ -39,7 +89,12 @@ export default function Home() {
               )}
             >
               <label className="cursor-pointer">
-                <input type="file" accept=".doc, .docx" className="sr-only" />
+                <input
+                  type="file"
+                  accept=".doc, .docx"
+                  className="sr-only"
+                  onChange={handleInput}
+                />
                 <Image
                   src="/assests/img/doc.svg"
                   alt=""
@@ -68,6 +123,6 @@ export default function Home() {
           </section>
         )}
       </div>
-    </MainLayout>
+    </SidebarLayout>
   )
 }

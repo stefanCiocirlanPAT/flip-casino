@@ -12,28 +12,29 @@ import { Badge } from '@/components/ui/badge'
 import { format } from 'date-fns'
 import { ChevronRight, Trash2 } from 'lucide-react'
 import { twMerge } from 'tailwind-merge'
+import { ProjectStatus } from '@/utils/types'
 
 const data = [
   {
     title: 'Last 24 hours',
     list: [
       {
-        status: 'requires_amendments',
+        status: ProjectStatus.REQUIRES_AMENDMENTS,
         title: 'King Kong Cash Game Review',
         date: new Date(),
       },
       {
-        status: 'published',
+        status: ProjectStatus.PUBLISHED,
         title: 'Betfair Casino Review',
         date: new Date(),
       },
       {
-        status: 'requires_amendments',
+        status: ProjectStatus.REQUIRES_AMENDMENTS,
         title: 'King Kong Cash Game Review',
         date: new Date(),
       },
       {
-        status: 'published',
+        status: ProjectStatus.PUBLISHED,
         title: 'Betfair Casino Review',
         date: new Date(),
       },
@@ -43,22 +44,22 @@ const data = [
     title: 'Last 7 days',
     list: [
       {
-        status: 'requires_amendments',
+        status: ProjectStatus.REQUIRES_AMENDMENTS,
         title: 'King Kong Cash Game Review',
         date: new Date(),
       },
       {
-        status: 'published',
+        status: ProjectStatus.PUBLISHED,
         title: 'Betfair Casino Review',
         date: new Date(),
       },
       {
-        status: 'requires_amendments',
+        status: ProjectStatus.REQUIRES_AMENDMENTS,
         title: 'King Kong Cash Game Review',
         date: new Date(),
       },
       {
-        status: 'published',
+        status: ProjectStatus.PUBLISHED,
         title: 'Betfair Casino Review',
         date: new Date(),
       },
@@ -68,22 +69,22 @@ const data = [
     title: 'Older',
     list: [
       {
-        status: 'requires_amendments',
+        status: ProjectStatus.REQUIRES_AMENDMENTS,
         title: 'King Kong Cash Game Review',
         date: new Date(),
       },
       {
-        status: 'published',
+        status: ProjectStatus.PUBLISHED,
         title: 'Betfair Casino Review',
         date: new Date(),
       },
       {
-        status: 'requires_amendments',
+        status: ProjectStatus.REQUIRES_AMENDMENTS,
         title: 'King Kong Cash Game Review',
         date: new Date(),
       },
       {
-        status: 'published',
+        status: ProjectStatus.PUBLISHED,
         title: 'Betfair Casino Review',
         date: new Date(),
       },
@@ -103,6 +104,7 @@ const Nav = () => {
       )}
     >
       <button
+        type="button"
         className="xl:hidden absolute top-0 -right-12 w-12 h-12 flex items-center justify-center bg-orange text-white"
         onClick={() => setIsOpened((prev) => !prev)}
       >
@@ -110,13 +112,17 @@ const Nav = () => {
       </button>
       <div className=" flex flex-col h-full px-5 pb-10 overflow-auto">
         <header className="sticky top-0 bg-white flex items-center justify-between py-10 mb-6 z-[1]">
-          <Image
-            src="/assests/img/logo-violet.svg"
-            alt="Logo"
-            width={148}
-            height={32}
-          />
-          <button className="text-xs text-grey underline">Log out</button>
+          <Link href="/">
+            <Image
+              src="/assests/img/logo-violet.svg"
+              alt="Logo"
+              width={148}
+              height={32}
+            />
+          </Link>
+          <Button size={'xs'} variant={'link'}>
+            Log out
+          </Button>
         </header>
 
         <div className="flex flex-col mb-10">
@@ -163,12 +169,12 @@ const Nav = () => {
           <Button asChild className="w-full font-semibold">
             <Link href="">Start a new project</Link>
           </Button>
-          <Link href="" className="text-xs underline">
-            What are the guidelines?
-          </Link>
-          <Link href="" className="text-xs underline">
-            Get help with the tool
-          </Link>
+          <Button size={'xs'} variant={'link'} asChild>
+            <Link href="">What are the guidelines?</Link>
+          </Button>
+          <Button size={'xs'} variant={'link'} asChild>
+            <Link href="">Get help with the tool</Link>
+          </Button>
         </footer>
       </div>
     </nav>

@@ -1,6 +1,6 @@
-import localFont from 'next/font/local'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
+import { Sora } from 'next/font/google'
 
 interface IProps {
   className?: string
@@ -8,10 +8,10 @@ interface IProps {
   children: React.ReactNode
 }
 
-const soraFont = localFont({
-  src: '../../pages/fonts/Sora-VariableFont_wght.ttf',
+const soraFont = Sora({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
   variable: '--font-sora',
-  weight: '100 900',
 })
 
 const MainLayout = ({ className, bg = true, children }: IProps) => {

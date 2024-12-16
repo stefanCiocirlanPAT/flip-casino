@@ -9,13 +9,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-orange',
-        purple: 'bg-paplepurple',
-        outline: 'border',
+        default: 'bg-orange hover:bg-[#cd4b03]',
+        purple: 'bg-paplepurple hover:bg-purple',
+        outline: 'border hover:bg-white hover:text-black',
+        link: 'text-xs text-grey underline hover:text-orange',
       },
       size: {
         default: 'py-2.5 px-12',
         sm: 'text-xs py-2 px-6',
+        xs: 'p-0',
         icon: 'h-10 w-10',
       },
     },
